@@ -1,0 +1,193 @@
+<html>
+    <head>
+        <title>Lukemouse Menu</title>
+        <head>
+                <link rel="stylesheet" href="https://use.typekit.net/uio6kep.css">
+                <style>
+                    body {
+                        background-color: #2b2b2b;
+                        font-family: cofo-sans-pixel, sans-serif;
+                        color: white;
+                        margin: 5em 10em;
+                    }
+                    h1 {
+                        text-align:center;
+                        text-decoration: underline;
+                        font-size: 4em;
+                        font-weight: 400;
+                        animation-name: blink;
+                        animation-duration: 3s;
+                        animation-iteration-count: infinite;
+                    }
+                    .center {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        position: relative;
+                    }
+                    select {
+                        appearance: none;
+                        background-color: #3d3d3d;
+                        border: none;
+                        margin: auto;
+                        font-family: inherit;
+                        font-size: 1.2em;
+                        line-height: inherit;
+                        color:white;
+                        padding: 1em 2.5em;
+                        background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+                        background-repeat: no-repeat;
+                        background-position-x: 98%;
+                        background-position-y: 50%;
+                        width: 30em;
+                    }
+                    select:hover, select:focus{
+                        cursor:pointer;
+                        background-color: #272727;
+
+                    }
+                    option:nth-of-type(odd) {
+                        background-color: #3a3a3a;
+                    }
+                    button {
+                        background: #2979e2;
+                        font-family: inherit;
+                        color:white;
+                        font-size: 1.2em;
+                        border: none;
+                        margin-top: 2em;
+                        padding: 0.5em 2em;
+                        text-align: center;
+                    }
+                    #launch {
+                        width: 30em;
+                    }
+                    button:hover{
+                        cursor: pointer;
+                        background: #1c549e;
+                    }
+                    .linebreak {
+                        flex: 0 0 100%;
+                    }
+                    #console {
+                        position:absolute;
+                        left: 0.3em;
+                    }
+                    #background {
+                        position:fixed;
+                        top: -100;
+                        left: -100;
+                        height: 120%;
+                        filter: invert(1) opacity(0.1)
+                    }
+                    .webgame {
+                        width: 20em;
+                        cursor: pointer;
+                        margin-top: 3em;
+                        margin-right: 1em;
+                        border: 5px dotted white;
+                        padding: 0.5em;
+                        border-radius: 5px;
+                    }
+                    .webgame:hover {
+                        filter: brightness(0.7)
+                    }
+                    @keyframes blink {
+                    0% {filter: opacity(1);}
+                    50% {filter: opacity(0.4);}
+                    100% {filter: opacity(1);}
+                    }
+                    input[type=url] {
+                        width: 20em;
+                        appearance: none;
+                        background-color: #3d3d3d;
+                        border: none;
+                        margin-right: 2em;
+                        font-family: inherit;
+                        font-size: 1.2em;
+                        line-height: inherit;
+                        color:white;
+                        padding: 1em 1em;
+                        margin-top: 2em;
+                    }
+            </style>
+    </head>
+    <body>
+        <div id="content">
+            <img src="/lukemouse.png" draggable="false" id="background">
+            <h1 style="margin-bottom:1em;">Choose Game</h1>
+            <div class="center">
+                <div class="center"><img src="gba.png" draggable="false" width="40" id="console"><select name="game" id="chosenGame">
+                    <option value="random-firered.gba">Pokemon FireRed (Randomized Warps)</option>
+                    <option value="rheaven.gba">Rhythm Heaven GBA</option>
+                    <option value="link.gbc">Link's Awakening DX</option>
+                    <option value="grimace.gbc">Grimace's Birthday Bash</option>
+                    <option value="hockey.nes">Ice Hockey</option>
+                    <option value="mages.nes">Micro Mages</option>
+                    <option value="puyo2.sfc">Puyo Puyo 2</option>
+                    <option value="doctor.z64">Dr. Mario 64</option>
+                    <option value="ocarina.z64">The Legend of Zelda: Ocarina of Time</option>
+                    <option value="majora.z64">The Legend of Zelda: Majora's Mask</option>
+                    <option value="supersmash.z64">Super Smash Bros. 64</option>
+                    <option value="proskater3.z64">Tony Hawk's Pro Skater 3</option>
+                    <option value="peggle.nds">Peggle: Dual Shot</option>
+                    <option value="mvsc.zip">Marvel Vs. Capcom</option>
+                    <option value="spnchout.zip">Super Punch-Out!</option>
+                </select>
+                </div>
+                <div class="linebreak"></div>
+                <button id='launch' onclick="launchGame(document.getElementById('chosenGame').value)">Launch Game</button>
+                <div class="linebreak"></div>
+                <a href="/cattle"><img src="cattle.png" class="webgame"></a><a href="/supermario64"><img src="mario.png" class="webgame"></a>
+                <div class="linebreak"></div>
+            </div>
+            <script>
+                function changeUrl() {
+                    if(document.getElementById("urlSelector").value.indexOf("https://") == -1) {
+                        window.location.href = "https://" + document.getElementById("urlSelector").value;
+                    } else {
+                        window.location.href = document.getElementById("urlSelector").value;
+                    }
+                }
+
+                document.getElementById("chosenGame").addEventListener('change',function() {
+                    document.getElementById("console").src = (getRomType() + ".png")
+                });
+
+                function getRomType() {
+                    return document.getElementById('chosenGame').value.substring(document.getElementById('chosenGame').value.indexOf(".") + 1);
+                }
+
+                function matchRomToCore(romType) {
+                    switch(romType) {
+                        case "gbc":
+                        case "gba":
+                            return "mgba";
+                            break;
+                        case "nes":
+                            return "nes";
+                            break;
+                        case "z64":
+                            return "n64";
+                            break;
+                        case "nds":
+                            return "melonds";
+                            break;
+                        case "sfc":
+                            return "snes9x"
+                            break;
+                        case "zip":
+                            return "fbneo";
+                            break;
+                    }
+                }
+
+                function launchGame(rom) {
+                   window.location.href= `/emulate?core=${matchRomToCore(getRomType(rom))}&rom=${rom}`;
+                }
+            </script>
+        </div>
+    </body>
+</html>

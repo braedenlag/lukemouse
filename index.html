@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Lukemouse</title>
+        <link rel="stylesheet" href="https://use.typekit.net/uio6kep.css">
+        <style>
+            html {
+                background-color: #2b2b2b;
+                background-color: #2b2b2b;
+                font-family: cofo-sans-pixel, sans-serif;
+                color: white;
+                margin: 20em 5em 0 45em;
+                overflow:hidden;
+            }
+            #background {
+                position:absolute;
+                top: -100;
+                left: -100;
+                height: 120%;
+                filter: invert(1) opacity(0.1)
+            }
+            a {
+                color:white;
+                text-decoration: underline;
+            }
+            h1 {
+                font-size: 5.2em;
+                font-weight: 400;
+            }
+        </style>
+    </head>
+        <body>
+            <img src="/lukemouse.png" draggable="false" id="background">
+            <h1>This is meant for Chromebooks. <a href="/menu">Visit the menu!</a></h1>
+        </body>
+        <script src="https://cdn.jsdelivr.net/gh/FogNetwork/ABC/index.js"></script>
+        <script>
+            document.URL = "www.lukemouse.com"
+            function onBeforeUnload(e) {
+                e.preventDefault();
+                e.returnValue = '';
+                return;
+
+                delete e['returnValue'];
+            }
+            window.addEventListener('beforeunload', onBeforeUnload);
+            var win = window.open("about:blank", '_blank', 'location=yes')
+            win.document.write(`<iframe src='/menu' width='100%' height='100%' frameborder='0' style='position:absolute; top: 0; left: 0;'>`);
+            win.focus();
+        </script>
+</html>
